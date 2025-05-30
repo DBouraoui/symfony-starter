@@ -55,6 +55,15 @@ JWT_PASSPHRASE=ta-passphrase-ici
 
 ---
 
+#### b. Installer les dépendance
+Installer les dépendance avec composer :
+```bash
+docker compose exec app bash && 
+composer install
+```
+
+---
+
 ## ▶️ Démarrer le projet
 
 ### Avec Docker directement :
@@ -70,13 +79,14 @@ make build
 ---
 
 ## 📝 Notes
-- Tu peux accéder à phpMyAdmin à l’adresse : [http://localhost:8080](http://localhost:8080)
+- Tu peux accéder à phpMyAdmin à l’adresse : [http://127.0.0.1:8080](http://localhost:8080)
 - Les ports, services et configurations supplémentaires peuvent être modifiés dans `docker-compose.yml` et `Caddyfile`.
 
 ---
 
 ## 📦 À venir (idées d’amélioration)
 - Tests automatisés
+- Version prod améliorée
 - CI/CD
 - Version PGSQL
 ---

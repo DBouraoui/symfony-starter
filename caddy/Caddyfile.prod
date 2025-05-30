@@ -1,0 +1,41 @@
+# Ce Caddyfile est à placer dans /etc/caddy/ sur le VPS/serveur en mode prod
+
+votre-url.fr {
+    reverse_proxy :8000  # Plus explicite avec localhost
+}
+
+# Optionnel - phpMyAdmin sécurisé par IP
+phpmyadmin.votre-url.fr {
+    @allowed remote_ip <votre_ip>
+
+    @denied {
+        not remote_ip <votre_ip>
+    }
+
+    handle @denied {
+        respond "Access denied" 403
+    }
+
+    handle @allowed {
+        reverse_proxy :8080  # Plus explicite avec localhost
+    }
+}
+
+# Redirection optionnelle www -> non-www
+www.votre-url.fr {
+    redir https://votre-url.fr{uri} permanent
+}
+
+# 1. Remplacer les placeholders
+# votre-url.fr
+# <votre_ip>
+
+# 2. Copier sur le VPS
+sudo cp Caddyfile.prod /etc/caddy/Caddyfile
+
+# 3. Valider et recharger
+sudo caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+
+# 4. Vérifier les certificats SSL
+sudo journalctl -u caddy -f

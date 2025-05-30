@@ -1,4 +1,4 @@
-http://localhost:8000 {
+:8000 {
     # Document root vers le dossier public de Symfony
     root * /var/www/symfony/public
 
